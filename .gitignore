@@ -1,0 +1,12 @@
+# Editor ignores
+.idea/
+.vscode
+
+# Mac file
+.DS_Store
+
+# Local enviroment files
+.env.local
+.env
+
+

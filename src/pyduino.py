@@ -8,14 +8,14 @@ class Arduino():
         self.conn.timeout = read_timeout # Timeout for readline()
         self.perm_pin = perm_pin
         self.fire_pin = 13
-        
+
     def set_pin_mode(self, pin_number, mode='O'):
         """
         - I for INPUT
         - O for OUTPUT
         - P for INPUT_PULLUP MO13
         """
-        command = (''.join(('M',mode,str(pin_number)))).encode()
+        command = (''.join(('M',mode, str(pin_number)))).encode()
         #print 'set_pin_mode =',command,(''.join(('M',mode,str(pin_number))))
         self.conn.write(command)
 
@@ -28,7 +28,7 @@ class Arduino():
 
     def change_fire_pin(self, new_pin):
         self.fire_pin = new_pin
-        
+
     def on(self):
         self.digital_write(self.perm_pin, 1)
 
@@ -66,20 +66,20 @@ class Arduino():
     def digital_write(self, pin_number, digital_value):
         command = (''.join(('WD', str(pin_number), ':',
             str(digital_value)))).encode()
-        self.conn.write(command) 
-     
+        self.conn.write(command)
+
     def analog_read(self, pin_number):
         command = (''.join(('RA', str(pin_number)))).encode()
-        self.conn.write(command) 
+        self.conn.write(command)
         line_received = self.conn.readline().decode().strip()
-        header, value = line_received.split(':')   
+        header, value = line_received.split(':')
         if header == ('A'+ str(pin_number)):
             return int(value)
 
     def analog_write(self, pin_number, analog_value):
         command = (''.join(('WA', str(pin_number), ':',
             str(analog_value)))).encode()
-        self.conn.write(command) 
+        self.conn.write(command)
 
     def close(self):
         self.conn.close()

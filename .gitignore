@@ -8,5 +8,6 @@
 # Local enviroment files
 .env.local
 .env
+/venv/
 
 

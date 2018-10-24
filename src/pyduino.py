@@ -1,11 +1,10 @@
 import serial
 import time
-import win32api
 
 class Arduino():
     def __init__(self, perm_pin=None, serial_port='COM6', baud_rate=9600, read_timeout=5):
         self.conn = serial.Serial(serial_port, baud_rate)
-        self.conn.timeout = read_timeout # Timeout for readline()
+        self.conn.timeout = read_timeout
         self.perm_pin = perm_pin
         self.fire_pin = 13
 
@@ -16,7 +15,6 @@ class Arduino():
         - P for INPUT_PULLUP MO13
         """
         command = (''.join(('M',mode, str(pin_number)))).encode()
-        #print 'set_pin_mode =',command,(''.join(('M',mode,str(pin_number))))
         self.conn.write(command)
 
     def set(self, new_mode='O'):
@@ -36,19 +34,15 @@ class Arduino():
         self.digital_write(self.fire_pin, 1)
         now = time.time()
         while True:
-            if win32api.GetAsyncKeyState(81) or time.time() - now > sec:
-                print "%.3f" % float(time.time() - now)
+            if time.time() - now > sec:
+                print("%.3f" % float(time.time() - now))
                 break
         self.digital_write(self.fire_pin, 0)
 
     def on_off(self, ticks, t=1):
-        for i in xrange(ticks):
-            if win32api.GetAsyncKeyState(81) or time.time() - now > sec:
-                break
-            print "On."
+        for i in range(ticks):
             self.digital_write(self.fire_pin, 1)
             time.sleep(t)
-            print "Off"
             self.digital_write(self.fire_pin, 0)
             time.sleep(t)
 
@@ -83,4 +77,4 @@ class Arduino():
 
     def close(self):
         self.conn.close()
-        print 'Connection to Arduino closed'
+        print('Connection to Arduino closed')

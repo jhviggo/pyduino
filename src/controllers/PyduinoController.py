@@ -1,14 +1,14 @@
+from formatters.PyduinoCommandStringFormatter import PyduinoCommandStringFormatter
+import sys
+sys.path.append('..')
+from Constants import *
+
 
 class PyduinoController:
     def __init__(self, conn, verbose=False):
         self.conn = conn
         self.verbose = verbose
         self.currentActivePins = []
-        self.pin_modes = {
-            'OUTPUT': 'O',
-            'INPUT': 'I',
-            'INPUT_PULLUP': 'P'
-        }
 
     def set_pin_mode(self, pin_number, mode='OUTPUT'):
         """
@@ -21,12 +21,12 @@ class PyduinoController:
         if self.verbose:
             print('Setting pin mode')
 
-        if mode not in self.pin_modes.keys():
+        if mode not in VALID_PIN_MODES.keys():
             print('\t[-]', 'unknown pin mode')
             return False
 
         try:
-            command = (''.join(('M', self.pin_modes[mode], str(pin_number)))).encode()
+            command = PyduinoCommandStringFormatter.format_single_pin_mode(pin_number, mode)
             if self.verbose:
                 print('\t', 'setting pin', pin_number, 'as', mode)
             self.conn.write(command)
@@ -65,7 +65,7 @@ class PyduinoController:
             print('Writing to digital pin')
 
         try:
-            command = (''.join(('WD', str(pin_number), ':', str(digital_value)))).encode()
+            command = PyduinoCommandStringFormatter.format_digital_write(pin_number, digital_value)
             if self.verbose:
                 print('\t', 'writing', digital_value, 'to digital pin', pin_number)
             self.conn.write(command)
@@ -85,7 +85,7 @@ class PyduinoController:
             print('Reading from digital pin')
 
         try:
-            command = (''.join(('RD', str(pin_number)))).encode()
+            command = PyduinoCommandStringFormatter.format_digital_read(pin_number)
             self.conn.write(command)
             if self.verbose:
                 print('\t', 'reading from digital pin', pin_number)
@@ -111,7 +111,7 @@ class PyduinoController:
             print('Writing to analog pin')
 
         try:
-            command = (''.join(('WA', str(pin_number), ':', str(analog_value)))).encode()
+            command = PyduinoCommandStringFormatter.format_analog_write(pin_number, analog_value)
             if self.verbose:
                 print('\t', 'writing', analog_value, 'to analog pin', pin_number)
             self.conn.write(command)
@@ -131,7 +131,7 @@ class PyduinoController:
             print('Reading from analog pin')
 
         try:
-            command = (''.join(('RA', str(pin_number)))).encode()
+            command = PyduinoCommandStringFormatter.format_analog_read(pin_number)
             self.conn.write(command)
             if self.verbose:
                 print('\t', 'reading from analog pin', pin_number)

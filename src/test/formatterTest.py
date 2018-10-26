@@ -6,13 +6,13 @@ from formatters.PyduinoProtocolStringFormatter import PyduinoProtocolStringForma
 
 class TestStringMethods(unittest.TestCase):
     def test_positive_command_formatter_single_pin_mode(self):
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'OUTPUT'), 'MO5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'O'), 'MO5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'INPUT'), 'MI5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'I'), 'MI5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'INPUT_PULLUP'), 'MP5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'P'), 'MP5'.encode())
-        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'P'), 'MP5'.encode())
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'OUTPUT'), 'MO5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'O'), 'MO5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'INPUT'), 'MI5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'I'), 'MI5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'INPUT_PULLUP'), 'MP5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'P'), 'MP5')
+        self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'P'), 'MP5')
 
     def test_negative_command_formatter_single_pin_mode(self):
         self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(5, 'testData'), '')
@@ -35,7 +35,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(PyduinoProtocolStringFormatter.format_single_pin_mode(False, 'O'), '')
 
     def test_positive_command_formatter_digital_read(self):
-        self.assertEqual(PyduinoProtocolStringFormatter.format_digital_read(1,), 'RD1'.encode())
+        self.assertEqual(PyduinoProtocolStringFormatter.format_digital_read(1,), 'RD1')
 
     def test_negative_command_formatter_digital_read(self):
         self.assertEqual(PyduinoProtocolStringFormatter.format_digital_read('123'), '')
@@ -47,7 +47,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(PyduinoProtocolStringFormatter.format_digital_read({}), '')
 
     def test_positive_command_formatter_digital_write(self):
-        self.assertEqual(PyduinoProtocolStringFormatter.format_digital_write(1, 123), 'WD1:123'.encode())
+        self.assertEqual(PyduinoProtocolStringFormatter.format_digital_write(1, 123), 'WD1:123')
 
     def test_negative_command_formatter_digital_write(self):
         self.assertEqual(PyduinoProtocolStringFormatter.format_digital_write('123', 123), '')
@@ -67,7 +67,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(PyduinoProtocolStringFormatter.format_digital_write(123, {}), '')
 
     def test_positive_command_formatter_analog_read(self):
-        self.assertEqual(PyduinoProtocolStringFormatter.format_analog_read(1), 'RA1'.encode())
+        self.assertEqual(PyduinoProtocolStringFormatter.format_analog_read(1), 'RA1')
 
     def test_negative_command_formatter_analog_read(self):
         self.assertEqual(PyduinoProtocolStringFormatter.format_analog_read('123'), '')
@@ -79,7 +79,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(PyduinoProtocolStringFormatter.format_analog_read({}), '')
 
     def test_positive_command_formatter_analog_write(self):
-        self.assertEqual(PyduinoProtocolStringFormatter.format_analog_write(1, 123), 'WA1:123'.encode())
+        self.assertEqual(PyduinoProtocolStringFormatter.format_analog_write(1, 123), 'WA1:123')
 
     def test_negative_command_formatter_analog_write(self):
         self.assertEqual(PyduinoProtocolStringFormatter.format_analog_write('1', 123), '')

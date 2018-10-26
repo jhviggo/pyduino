@@ -1,8 +1,9 @@
-from formatters.PyduinoProtocolStringFormatter import PyduinoProtocolStringFormatter
 import sys
 sys.path.append('..')
 from Constants import *
-
+from formatters.PyduinoProtocolStringFormatter import PyduinoProtocolStringFormatter
+from validators.PyduinoParameterValidator import PyduinoParameterValidator
+from validators.PyduinoProtocolFormatValidator import PyduinoProtocolFormatValidator
 
 class PyduinoController:
     def __init__(self, conn, verbose=False):
@@ -18,18 +19,25 @@ class PyduinoController:
         :param mode: string specified in self.pin_modes
         :return: boolean
         """
+        if not PyduinoParameterValidator.validate_pin_number(pin_number):
+            return False
+
+        if not PyduinoParameterValidator.validate_pin_modes(mode):
+            return False
+
         if self.verbose:
             print('Setting pin mode')
 
-        if mode not in VALID_PIN_MODES.keys():
-            print('\t[-]', 'unknown pin mode')
-            return False
 
         try:
             command = PyduinoProtocolStringFormatter.format_single_pin_mode(pin_number, mode)
+
+            if not PyduinoProtocolFormatValidator.validate_pin_mode(command):
+                return False
+
             if self.verbose:
                 print('\t', 'setting pin', pin_number, 'as', mode)
-            self.conn.write(command)
+            self.conn.write(command.encode())
             if self.verbose:
                 print('\t', 'saving as {"pin": ' + str(pin_number) + ', "mode": "' + mode + '"} to local storage')
             self.currentActivePins.append({'pin': pin_number, 'mode': mode})
@@ -61,14 +69,25 @@ class PyduinoController:
         :param digital_value: int
         :return: boolean
         """
+
+        if not PyduinoParameterValidator.validate_pin_number(pin_number):
+            return False
+
+        if not PyduinoParameterValidator.validate_digital_range(digital_value):
+            return False
+
         if self.verbose:
             print('Writing to digital pin')
 
         try:
             command = PyduinoProtocolStringFormatter.format_digital_write(pin_number, digital_value)
+
+            if not PyduinoProtocolFormatValidator.validate_write_action(command):
+                return False
+
             if self.verbose:
                 print('\t', 'writing', digital_value, 'to digital pin', pin_number)
-            self.conn.write(command)
+            self.conn.write(command.encode())
             return True
         except Exception as e:
             print('\t[-]', e)
@@ -81,12 +100,19 @@ class PyduinoController:
         :param pin_number: int
         :return: int
         """
+        if not PyduinoParameterValidator.validate_pin_number(pin_number):
+            return False
+
         if self.verbose:
             print('Reading from digital pin')
 
         try:
             command = PyduinoProtocolStringFormatter.format_digital_read(pin_number)
-            self.conn.write(command)
+
+            if not PyduinoProtocolFormatValidator.validate_read_action(command):
+                return False
+
+            self.conn.write(command.encode())
             if self.verbose:
                 print('\t', 'reading from digital pin', pin_number)
             line_received = self.conn.readline().decode().strip()
@@ -107,14 +133,24 @@ class PyduinoController:
         :param analog_value: int
         :return: boolean
         """
+        if not PyduinoParameterValidator.validate_pin_number(pin_number):
+            return False
+
+        if not PyduinoParameterValidator.validate_analog_range(analog_value):
+            return False
+
         if self.verbose:
             print('Writing to analog pin')
 
         try:
             command = PyduinoProtocolStringFormatter.format_analog_write(pin_number, analog_value)
+
+            if not PyduinoProtocolFormatValidator.validate_write_action(command):
+                return False
+
             if self.verbose:
                 print('\t', 'writing', analog_value, 'to analog pin', pin_number)
-            self.conn.write(command)
+            self.conn.write(command.encode())
             return True
         except Exception as e:
             print('\t[-]', e)
@@ -127,12 +163,19 @@ class PyduinoController:
         :param pin_number: int
         :return: boolean
         """
+        if not PyduinoParameterValidator.validate_pin_number(pin_number):
+            return False
+
         if self.verbose:
             print('Reading from analog pin')
 
         try:
             command = PyduinoProtocolStringFormatter.format_analog_read(pin_number)
-            self.conn.write(command)
+
+            if not PyduinoProtocolFormatValidator.validate_read_action(command):
+                return False
+
+            self.conn.write(command.encode())
             if self.verbose:
                 print('\t', 'reading from analog pin', pin_number)
             line_received = self.conn.readline().decode().strip()

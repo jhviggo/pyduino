@@ -24,7 +24,7 @@ class PyduinoProtocolStringFormatter:
 
         return str().join((MODE,
                            VALID_PIN_MODES[pin_mode],
-                           str(pin_number))).encode()
+                           str(pin_number)))
 
     @staticmethod
     def format_digital_read(pin_number):
@@ -39,7 +39,7 @@ class PyduinoProtocolStringFormatter:
 
         return str().join((READ,
                            DIGITAL,
-                           str(pin_number))).encode()
+                           str(pin_number)))
 
     @staticmethod
     def format_digital_write(pin_number, digital_value):
@@ -60,7 +60,7 @@ class PyduinoProtocolStringFormatter:
                            DIGITAL,
                            str(pin_number),
                            SEPARATOR,
-                           str(digital_value))).encode()
+                           str(digital_value)))
 
     @staticmethod
     def format_analog_read(pin_number):
@@ -75,7 +75,7 @@ class PyduinoProtocolStringFormatter:
 
         return str().join((READ,
                            ANALOG,
-                           str(pin_number))).encode()
+                           str(pin_number)))
 
     @staticmethod
     def format_analog_write(pin_number, analog_value):
@@ -96,4 +96,4 @@ class PyduinoProtocolStringFormatter:
                            ANALOG,
                            str(pin_number),
                            SEPARATOR,
-                           str(analog_value))).encode()
+                           str(analog_value)))

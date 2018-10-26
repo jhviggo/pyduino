@@ -24,6 +24,15 @@ class PyduinoParameterValidator:
         return False
 
     @staticmethod
+    def validate_pin_number(pin_number):
+        if not PyduinoParameterValidator.is_digit(pin_number):
+            return False
+
+        if int(pin_number) in AVAILABLE_PINS:
+            return True
+        return False
+
+    @staticmethod
     def validate_digital_range(digital_value):
         if type(digital_value) is str:
             if digital_value.upper() == HIGH or digital_value.upper() == LOW:

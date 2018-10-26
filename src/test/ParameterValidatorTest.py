@@ -22,6 +22,29 @@ class ParameterValidatorTest(unittest.TestCase):
         self.assertEqual(PyduinoParameterValidator.is_digit(True), False)
         self.assertEqual(PyduinoParameterValidator.is_digit(False), False)
 
+    def test_positive_parameter_validator_pin_number(self):
+        for i in range(1, 14):
+            self.assertEqual(PyduinoParameterValidator.validate_pin_number(i), True)
+            self.assertEqual(PyduinoParameterValidator.validate_pin_number(str(i)), True)
+
+    def test_negative_parameter_validator_pin_number(self):
+        for i in range(-50, 1):
+            self.assertEqual(PyduinoParameterValidator.validate_pin_number(i), False)
+            self.assertEqual(PyduinoParameterValidator.validate_pin_number(str(i)), False)
+
+        for i in range(14, 50):
+                    self.assertEqual(PyduinoParameterValidator.validate_pin_number(i), False)
+                    self.assertEqual(PyduinoParameterValidator.validate_pin_number(str(i)), False)
+
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number(''), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number('a'), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number('asDFs'), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number([]), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number({}), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number(()), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number(True), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_number(False), False)
+
     def test_positive_parameter_validator_pin_mode(self):
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes('o'), True)
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes('O'), True)

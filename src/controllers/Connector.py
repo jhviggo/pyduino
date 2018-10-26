@@ -16,14 +16,19 @@ class Connector:
         :return: Serial object
         """
         if self.verbose:
-            print('Connecting to port', self.serial_port + '...')
+            print('Connecting to port [' + self.serial_port + ']...', end='')
         try:
             self.conn = serial.Serial(self.serial_port, self.baud_rate)
             self.conn.timeout = self.read_timeout
-            return self.conn
+            if self.verbose:
+                print('Connected')
+            return True
         except Exception as e:
             print('\t[-]', e)
-            return None
+            return False
+
+    def get_serial_connection(self):
+        return self.conn
 
     def close_connection(self):
         """
@@ -36,7 +41,7 @@ class Connector:
         try:
             self.conn.close()
             if self.verbose:
-                print('\t', 'connection closed')
+                print('\tconnection closed')
             return True
         except Exception as e:
             print('\t[-]', e)

@@ -3,6 +3,7 @@ sys.path.append('..')
 from formatters.ProtocolStringFormatter import ProtocolStringFormatter
 from validators.ParameterValidator import ParameterValidator
 from validators.ProtocolFormatValidator import ProtocolFormatValidator
+from HelperFunctions import print_verbose
 
 class Controller:
     def __init__(self, conn, verbose=False):
@@ -24,21 +25,16 @@ class Controller:
         if not ParameterValidator.validate_pin_modes(mode):
             return False
 
-        if self.verbose:
-            print('Setting pin mode')
-
+        print_verbose('Controller.set_pin_mode.pin.mode')
 
         try:
             command = ProtocolStringFormatter.format_single_pin_mode(pin_number, mode)
-
             if not ProtocolFormatValidator.validate_pin_mode(command):
                 return False
 
-            if self.verbose:
-                print('\t', 'setting pin', pin_number, 'as', mode)
+            print_verbose('Controller.set_pin_mode.pin.mode.as', pin_number, mode, indent=1)
             self.conn.write(command.encode())
-            if self.verbose:
-                print('\t', 'saving as {"pin": ' + str(pin_number) + ', "mode": "' + mode + '"} to local storage')
+            print_verbose('Controller.set_pin_mode.saving.as', pin_number, mode, indent=1)
             self.currentActivePins.append({'pin': pin_number, 'mode': mode})
             return True
         except Exception as e:
@@ -75,17 +71,14 @@ class Controller:
         if not ParameterValidator.validate_digital_range(digital_value):
             return False
 
-        if self.verbose:
-            print('Writing to digital pin')
+        print_verbose('Controller.digital_write.writing.to')
 
         try:
             command = ProtocolStringFormatter.format_digital_write(pin_number, digital_value)
-
             if not ProtocolFormatValidator.validate_write_action(command):
                 return False
 
-            if self.verbose:
-                print('\t', 'writing', digital_value, 'to digital pin', pin_number)
+            print_verbose('Controller.digital_write.writing.to.with', digital_value, pin_number, indent=1)
             self.conn.write(command.encode())
             return True
         except Exception as e:
@@ -102,18 +95,15 @@ class Controller:
         if not ParameterValidator.validate_pin_number(pin_number):
             return False
 
-        if self.verbose:
-            print('Reading from digital pin')
+        print_verbose('Controller.digital_read.reading.from')
 
         try:
             command = ProtocolStringFormatter.format_digital_read(pin_number)
-
             if not ProtocolFormatValidator.validate_read_action(command):
                 return False
 
             self.conn.write(command.encode())
-            if self.verbose:
-                print('\t', 'reading from digital pin', pin_number)
+            print_verbose('Controller.digital_read.reading.from.pin', pin_number, indent=1)
             line_received = self.conn.readline().decode().strip()
             header, value = line_received.split(':')
         except Exception as e:
@@ -138,17 +128,14 @@ class Controller:
         if not ParameterValidator.validate_analog_range(analog_value):
             return False
 
-        if self.verbose:
-            print('Writing to analog pin')
+        print_verbose('Controller.analog_write.writing.to')
 
         try:
             command = ProtocolStringFormatter.format_analog_write(pin_number, analog_value)
-
             if not ProtocolFormatValidator.validate_write_action(command):
                 return False
 
-            if self.verbose:
-                print('\t', 'writing', analog_value, 'to analog pin', pin_number)
+            print_verbose('Controller.analog_write.writing.to.pin', analog_value, pin_number, indent=1)
             self.conn.write(command.encode())
             return True
         except Exception as e:
@@ -165,18 +152,15 @@ class Controller:
         if not ParameterValidator.validate_pin_number(pin_number):
             return False
 
-        if self.verbose:
-            print('Reading from analog pin')
+        print_verbose('Controller.analog_read.reading.from')
 
         try:
             command = ProtocolStringFormatter.format_analog_read(pin_number)
-
             if not ProtocolFormatValidator.validate_read_action(command):
                 return False
 
             self.conn.write(command.encode())
-            if self.verbose:
-                print('\t', 'reading from analog pin', pin_number)
+            print_verbose('Controller.analog_read.reading.from.pin', pin_number)
             line_received = self.conn.readline().decode().strip()
             header, value = line_received.split(':')
         except Exception as e:

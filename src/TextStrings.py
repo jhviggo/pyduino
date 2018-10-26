@@ -1,3 +1,14 @@
+""""
+Naming convention:
+
+    Class.method_name.description: {
+        da,
+        en,
+        ?other
+    }
+
+"""
+
 TEXT_STRINGS = {
     'Controller.set_pin_mode.pin.mode': {
         'da': 'Sætter pin tilstand',

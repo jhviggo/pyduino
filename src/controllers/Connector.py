@@ -1,7 +1,7 @@
 import serial
 
 
-class PyduinoConnector:
+class Connector:
     def __init__(self, serial_port='COM6', baud_rate=9600, read_timeout=5, verbose=False):
         self.conn = None
         self.serial_port = serial_port

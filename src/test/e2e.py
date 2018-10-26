@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from controllers.Connector import Connector
 from controllers.Controller import Controller
 

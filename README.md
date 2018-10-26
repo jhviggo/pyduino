@@ -10,8 +10,8 @@ Python v3.5
 
 ## Setup
 The project will work for both Mac, Linux and Windows.
-### install
-Install instruction for linux.
+
+### Install
 ```bash
 # install Python35 or newer and pip3
 sudo apt install python3.5
@@ -22,6 +22,39 @@ pip3 install pyserial
 
 # clone project
 git clone git@github.com:jhviggo/pyduino.git
+```
+
+### Arduino setup
+
+Compile the file `src/arduino/pyduino.ino` to your arduino, it contains the protocol used to communicate with it. Make sure it compiles correctly and try running:
+```bash
+cd src/test/
+python3 e2e.py
+```
+You should see output somewhat like this:
+```
+Connecting to port COM3...
+Setting pin mode
+         setting pin 5 as OUTPUT
+         saving as {"pin": 5, "mode": "OUTPUT"} to local storage
+Setting pin mode
+         setting pin 7 as INPUT
+         saving as {"pin": 7, "mode": "INPUT"} to local storage
+Setting pin mode
+         setting pin 8 as OUTPUT
+         saving as {"pin": 8, "mode": "OUTPUT"} to local storage
+Writing to digital pin
+         writing 1 to digital pin 5
+Reading from digital pin
+         reading from digital pin 5
+        [-] not enough values to unpack (expected 2, got 1)
+Writing to analog pin
+         writing 15 to analog pin 1
+Reading from analog pin
+         reading from analog pin 1
+        [-] not enough values to unpack (expected 2, got 1)
+Closing connection...
+         connection closed
 ```
 
 ### run

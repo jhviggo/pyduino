@@ -1,13 +1,13 @@
-from controllers.PyduinoConnector import PyduinoConnector
-from controllers.PyduinoController import PyduinoController
+from controllers.Connector import Connector
+from controllers.Controller import Controller
 
 if __name__ == '__main__':
-    connector = PyduinoConnector(serial_port='COM3', read_timeout=1, verbose=True)
+    connector = Connector(serial_port='COM3', read_timeout=1, verbose=True)
     conn = connector.connect_to_serial_port()
     if conn is None:
         raise Exception('[-] connect_to_serial_port failed')
 
-    controller = PyduinoController(conn, verbose=True)
+    controller = Controller(conn, verbose=True)
 
     if not controller.set_pin_mode(5, 'OUTPUT'):
         raise Exception('[-] set_pin_mode failed')

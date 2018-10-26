@@ -1,7 +1,7 @@
 import re
 
 
-class PyduinoProtocolFormatValidator:
+class ProtocolFormatValidator:
     @staticmethod
     def validate_pin_mode(command):
         if type(command) is not str:

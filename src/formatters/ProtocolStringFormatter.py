@@ -3,7 +3,7 @@ sys.path.append('..')
 from Constants import *
 
 
-class PyduinoProtocolStringFormatter:
+class ProtocolStringFormatter:
     @staticmethod
     def format_single_pin_mode(pin_number, pin_mode):
         """

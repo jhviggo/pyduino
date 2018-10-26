@@ -3,7 +3,7 @@ sys.path.append('..')
 from Constants import *
 
 
-class PyduinoParameterValidator:
+class ParameterValidator:
     @staticmethod
     def is_digit(value):
         if type(value) is int:
@@ -25,7 +25,7 @@ class PyduinoParameterValidator:
 
     @staticmethod
     def validate_pin_number(pin_number):
-        if not PyduinoParameterValidator.is_digit(pin_number):
+        if not ParameterValidator.is_digit(pin_number):
             return False
 
         if int(pin_number) in AVAILABLE_PINS:
@@ -38,7 +38,7 @@ class PyduinoParameterValidator:
             if digital_value.upper() == HIGH or digital_value.upper() == LOW:
                 return True
 
-        if not PyduinoParameterValidator.is_digit(digital_value):
+        if not ParameterValidator.is_digit(digital_value):
             return False
 
         if DIGITAL_RANGE[0] <= int(digital_value) <= DIGITAL_RANGE[1]:
@@ -47,7 +47,7 @@ class PyduinoParameterValidator:
 
     @staticmethod
     def validate_analog_range(digital_value):
-        if not PyduinoParameterValidator.is_digit(digital_value):
+        if not ParameterValidator.is_digit(digital_value):
             return False
 
         if ANALOG_RANGE[0] <= int(digital_value) <= ANALOG_RANGE[1]:

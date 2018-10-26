@@ -18,6 +18,7 @@ class ParameterValidatorTest(unittest.TestCase):
 
         self.assertEqual(PyduinoParameterValidator.is_digit([]), False)
         self.assertEqual(PyduinoParameterValidator.is_digit({}), False)
+        self.assertEqual(PyduinoParameterValidator.is_digit(()), False)
         self.assertEqual(PyduinoParameterValidator.is_digit(True), False)
         self.assertEqual(PyduinoParameterValidator.is_digit(False), False)
 
@@ -38,6 +39,7 @@ class ParameterValidatorTest(unittest.TestCase):
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes('L'), False)
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes([]), False)
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes({}), False)
+        self.assertEqual(PyduinoParameterValidator.validate_pin_modes(()), False)
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes(True), False)
         self.assertEqual(PyduinoParameterValidator.validate_pin_modes(False), False)
 
@@ -60,6 +62,7 @@ class ParameterValidatorTest(unittest.TestCase):
 
         self.assertEqual(PyduinoParameterValidator.validate_digital_range([]), False)
         self.assertEqual(PyduinoParameterValidator.validate_digital_range({}), False)
+        self.assertEqual(PyduinoParameterValidator.validate_digital_range(()), False)
         self.assertEqual(PyduinoParameterValidator.validate_digital_range(False), False)
         self.assertEqual(PyduinoParameterValidator.validate_digital_range(True), False)
 
@@ -77,6 +80,7 @@ class ParameterValidatorTest(unittest.TestCase):
 
         self.assertEqual(PyduinoParameterValidator.validate_analog_range([]), False)
         self.assertEqual(PyduinoParameterValidator.validate_analog_range({}), False)
+        self.assertEqual(PyduinoParameterValidator.validate_analog_range(()), False)
         self.assertEqual(PyduinoParameterValidator.validate_analog_range(True), False)
         self.assertEqual(PyduinoParameterValidator.validate_analog_range(False), False)
 

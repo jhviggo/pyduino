@@ -1,7 +1,5 @@
 import unittest
-import sys
-sys.path.append('..')
-from validators.ProtocolFormatValidator import ProtocolFormatValidator
+from ..validators.ProtocolFormatValidator import ProtocolFormatValidator
 
 
 """

@@ -1,7 +1,5 @@
 import unittest
-import sys
-sys.path.append('..')
-from formatters.ProtocolStringFormatter import ProtocolStringFormatter
+from ..formatters.ProtocolStringFormatter import ProtocolStringFormatter
 
 
 class TestStringMethods(unittest.TestCase):

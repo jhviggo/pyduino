@@ -1,8 +1,6 @@
 import unittest
-import sys
-sys.path.append('..')
-from validators.ParameterValidator import ParameterValidator
-from Constants import *
+from ..validators.ParameterValidator import ParameterValidator
+from ..Constants import *
 
 
 class ParameterValidatorTest(unittest.TestCase):

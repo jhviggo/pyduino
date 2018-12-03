@@ -2,14 +2,29 @@ import sys
 sys.path.append('..')
 from controllers.Connector import Connector
 from controllers.Controller import Controller
+from HelperFunctions import HelperFunctions
+
+VERBOSE = True
+SERIAL_PORT = 'COM3'
+READ_TIMEOUT = 1
+LANGUAGE = 'en'
 
 if __name__ == '__main__':
-    connector = Connector(serial_port='COM3', read_timeout=1, verbose=True)
-    conn = connector.connect_to_serial_port()
+    connector = Connector(serial_port=SERIAL_PORT, read_timeout=READ_TIMEOUT, verbose=VERBOSE)
+    connector.connect_to_serial_port()
+    conn = connector.get_serial_connection()
+    options = {
+        'serial_port': SERIAL_PORT,
+        'read_timeout': READ_TIMEOUT,
+        'verbose': VERBOSE,
+        'language': LANGUAGE
+    }
+    HelperFunctions(options=options)
+
     if conn is None:
         raise Exception('[-] connect_to_serial_port failed')
 
-    controller = Controller(conn, verbose=True)
+    controller = Controller(conn, verbose=VERBOSE)
 
     if not controller.set_pin_mode(5, 'OUTPUT'):
         raise Exception('[-] set_pin_mode failed')

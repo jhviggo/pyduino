@@ -1,4 +1,5 @@
 import sys
+import time
 sys.path.append('..')
 from formatters.ProtocolStringFormatter import ProtocolStringFormatter
 from validators.ParameterValidator import ParameterValidator
@@ -10,6 +11,26 @@ class Controller:
         self.conn = conn
         self.verbose = verbose
         self.currentActivePins = []
+
+
+    def get_pulse_in(self):
+        self.conn.write("U10".encode())
+        return int(self.conn.readline().decode().strip())*0.034/2/1000
+
+    def set_colors(self, R, G, B):
+        time.sleep(.1)
+        self.toggle_lights('3')
+        time.sleep(1)
+        print("(" + R + ", " + G + ", " + B + ")")
+        self.conn.write(str("PP0;" + R + "." + G + "." + B).encode())
+
+    def toggle_lights(self, status):
+        print("[+]lights: " + status) 
+        self.conn.write(str('LL' + status).encode())
+
+    def set_led_brightness(self, brightness):
+        print("[+]brightness: " + brightness)
+        self.conn.write(str('B'+brightness).encode())
 
     def set_pin_mode(self, pin_number, mode='OUTPUT'):
         """

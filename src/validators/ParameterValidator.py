@@ -1,4 +1,6 @@
-from ..Constants import *
+import sys
+sys.path.append('..')
+from Constants import *
 
 
 class ParameterValidator:

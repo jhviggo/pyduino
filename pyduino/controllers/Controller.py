@@ -1,9 +1,8 @@
-import sys
-sys.path.append('..')
-from formatters.ProtocolStringFormatter import ProtocolStringFormatter
-from validators.ParameterValidator import ParameterValidator
-from validators.ProtocolFormatValidator import ProtocolFormatValidator
-from HelperFunctions import print_verbose
+import time
+from pyduino.formatters.ProtocolStringFormatter import ProtocolStringFormatter
+from pyduino.validators.ParameterValidator import ParameterValidator
+from pyduino.validators.ProtocolFormatValidator import ProtocolFormatValidator
+from pyduino.HelperFunctions import print_verbose
 
 class Controller:
     def __init__(self, conn, verbose=False):

@@ -1,4 +1,4 @@
-from TextStrings import get_language_text
+from pyduino.TextStrings import get_language_text
 
 
 def singleton(class_):

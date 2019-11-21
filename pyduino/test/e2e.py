@@ -1,8 +1,6 @@
-import sys
-sys.path.append('..')
-from controllers.Connector import Connector
-from controllers.Controller import Controller
-from HelperFunctions import HelperFunctions
+from pyduino.controllers.Connector import Connector
+from pyduino.controllers.Controller import Controller
+from pyduino.HelperFunctions import HelperFunctions
 
 VERBOSE = True
 SERIAL_PORT = 'COM3'

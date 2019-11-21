@@ -1,11 +1,11 @@
 # Pyduino project
-This project is a python controller for Arduino.
+This is a school project originally based on [lekum/pyduino](https://github.com/lekum/pyduino) and has evolved a lot from his original code.
 
 It allows you to set pins as `OUTPUT` or `INPUT` and read/write to either digital or analog pins. It is a way to work with the Arduino without having to code C++ and compile it every time. With this library you can interactively set, read from and write to pins.
 
-## Versions
+## Supports Python Versions
 ```
-Python v3.5
+Python v3.x
 ```
 
 ## Setup
@@ -13,23 +13,20 @@ The project will work for both Mac, Linux and Windows.
 
 ### Install
 ```bash
-# install Python35 or newer and pip3
-sudo apt install python3.5
-sudo apt install python3-pip
-
-# install pySerial library
-pip3 install pyserial
-
-# clone project
+# Clone project
 git clone git@github.com:jhviggo/pyduino.git
+cd pyduino
+
+# Install pyduino package
+pip install -r requirements.txt
+pip install . # Installs pyduino package
 ```
 
 ### Arduino setup
 
 Compile the file `src/arduino/pyduino.ino` to your arduino, it contains the protocol used to communicate with it. Make sure it compiles correctly and try running:
 ```bash
-cd src/test/
-python3 e2e.py
+python pyduino/test/e2e.py
 ```
 You should see output somewhat like this:
 ```
@@ -63,13 +60,12 @@ Currently there is no CLI or interactive interface. You will have to import the 
 # find project source
 cd pyduino/src
 
-# open python 3.5 or higher
-python3
+python
 ```
 ```python
 # import Connector and controller
-import controllers.PyduinoConnector
-import controllers.PyduinoController
+from pyduino.controllers import Connector
+from pyduino.controllers import Controller
 
 # create an instance with serial_port and if you want verbose prints
 connector = Connector(serial_port='COM3', read_timeout=1, verbose=True)

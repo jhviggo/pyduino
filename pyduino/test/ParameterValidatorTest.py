@@ -1,6 +1,6 @@
 import unittest
-from ..validators.ParameterValidator import ParameterValidator
-from ..Constants import *
+from pyduino.validators.ParameterValidator import ParameterValidator
+from pyduino.Constants import *
 
 
 class ParameterValidatorTest(unittest.TestCase):

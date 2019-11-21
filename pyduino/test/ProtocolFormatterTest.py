@@ -1,5 +1,5 @@
 import unittest
-from ..formatters.ProtocolStringFormatter import ProtocolStringFormatter
+from pyduino.formatters.ProtocolStringFormatter import ProtocolStringFormatter
 
 
 class TestStringMethods(unittest.TestCase):

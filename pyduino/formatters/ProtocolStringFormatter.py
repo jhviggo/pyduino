@@ -1,4 +1,4 @@
-from ..Constants import *
+from pyduino.Constants import *
 
 
 class ProtocolStringFormatter:

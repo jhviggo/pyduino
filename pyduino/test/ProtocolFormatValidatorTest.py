@@ -1,5 +1,5 @@
 import unittest
-from ..validators.ProtocolFormatValidator import ProtocolFormatValidator
+from pyduino.validators.ProtocolFormatValidator import ProtocolFormatValidator
 
 
 """

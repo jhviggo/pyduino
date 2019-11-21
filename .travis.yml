@@ -1,8 +1,10 @@
 language: python
+
 python:
   - "3.5"
 install:
+  - pip install .
   - pip install -r requirements.txt
 script:
-  - python -m unittest discover -v -s src.test -p "*Test.py"
+  - python -m unittest discover -v -s pyduino.test -p "*Test.py"
 

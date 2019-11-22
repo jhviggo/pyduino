@@ -1,18 +1,28 @@
-import time
+from pyduino.HelperFunctions import singleton
 from pyduino.formatters.ProtocolStringFormatter import ProtocolStringFormatter
 from pyduino.validators.ParameterValidator import ParameterValidator
 from pyduino.validators.ProtocolFormatValidator import ProtocolFormatValidator
 from pyduino.HelperFunctions import print_verbose
 
+
+@singleton
 class Controller:
-    def __init__(self, conn, verbose=False):
+    def __init__(self, conn=None, verbose=False):
         self.conn = conn
         self.verbose = verbose
         self.currentActivePins = []
 
+    def set_connection(self, conn):
+        """
+        Sets the serial connection for the Controller
+
+        :param conn: serial connection from controllers.Connector
+        """
+        self.conn = conn
+
     def set_pin_mode(self, pin_number, mode='OUTPUT'):
         """
-        sets a pin with a mode
+        Sets a pin with a mode
 
         :param pin_number:  int
         :param mode: string specified in self.pin_modes

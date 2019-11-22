@@ -22,7 +22,7 @@ if __name__ == '__main__':
     if conn is None:
         raise Exception('[-] connect_to_serial_port failed')
 
-    controller = Controller(conn, verbose=VERBOSE)
+    controller = Controller(conn=conn, verbose=VERBOSE)
 
     if not controller.set_pin_mode(5, 'OUTPUT'):
         raise Exception('[-] set_pin_mode failed')

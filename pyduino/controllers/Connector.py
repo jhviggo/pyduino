@@ -1,6 +1,8 @@
 import serial
+from pyduino.HelperFunctions import singleton
 
 
+@singleton
 class Connector:
     def __init__(self, serial_port='COM6', baud_rate=9600, read_timeout=5, verbose=False):
         self.conn = None
@@ -8,6 +10,11 @@ class Connector:
         self.read_timeout = read_timeout
         self.baud_rate = baud_rate
         self.verbose = verbose
+
+        self.connect_to_serial_port()
+
+    def get_connection(self) -> serial:
+        return self.conn
 
     def connect_to_serial_port(self):
         """
@@ -24,10 +31,14 @@ class Connector:
                 print('Connected')
             return True
         except Exception as e:
-            print('\t[-]', e)
+            print('\n\t[-]', e)
             return False
 
     def get_serial_connection(self):
+        """Gets the serial connection
+
+        :return conn: serial connection
+        """
         return self.conn
 
     def close_connection(self):
@@ -37,12 +48,12 @@ class Connector:
         :return: boolean
         """
         if self.verbose:
-            print('Closing connection...')
+            print('Closing connection...', end='')
         try:
             self.conn.close()
             if self.verbose:
-                print('\tconnection closed')
+                print('Closed')
             return True
         except Exception as e:
-            print('\t[-]', e)
+            print('\n\t[-]', e)
             return False

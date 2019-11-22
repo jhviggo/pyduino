@@ -10,6 +10,7 @@
 .env
 /venv/
 __pycache__/
+main.py
 
 # Package
 dist/

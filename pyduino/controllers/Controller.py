@@ -13,11 +13,16 @@ class Controller:
         self.currentActivePins = []
 
     def set_connection(self, conn):
+        """
+        Sets the serial connection for the Controller
+
+        :param conn: serial connection from controllers.Connector
+        """
         self.conn = conn
 
     def set_pin_mode(self, pin_number, mode='OUTPUT'):
         """
-        sets a pin with a mode
+        Sets a pin with a mode
 
         :param pin_number:  int
         :param mode: string specified in self.pin_modes

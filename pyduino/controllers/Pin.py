@@ -40,12 +40,24 @@ class DigitalPin(PinInterface):
         self.mode = mode
 
     def write(self, value) -> bool:
+        """
+        Writes to the digital port
+
+        :param value: The value to be written. Must be HIGH or LOW
+        :type value: int
+        :raises RuntimeError: Cannot write to INPUT ports
+        """
         if self.mode == INPUT:
             raise RuntimeError("[-] Cannot write to an INPUT port")
 
         return Controller().digital_write(self.pin_number, value)
 
     def read(self) -> bool:
+        """
+        Reads from the digital port
+
+        :raises RuntimeError: Cannot read from OUTPUT ports
+        """
         if self.mode == OUTPUT:
             raise RuntimeError("[-] Cannot read from an OUTPUT port")
 

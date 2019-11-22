@@ -35,6 +35,10 @@ class Connector:
             return False
 
     def get_serial_connection(self):
+        """Gets the serial connection
+
+        :return conn: serial connection
+        """
         return self.conn
 
     def close_connection(self):

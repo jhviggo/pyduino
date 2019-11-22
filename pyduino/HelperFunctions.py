@@ -22,6 +22,12 @@ class HelperFunctions:
     def get_options(self):
         return self.options
 
+    def get_environment(self):
+        if self.options is None:
+            return None
+
+        return self.options['env']
+
 
 def print_verbose(text, *args, indent=0):
     if HelperFunctions().get_options()['verbose']:

@@ -102,26 +102,29 @@ class Controller:
         :return: int
         """
         if not ParameterValidator.validate_pin_number(pin_number):
-            return False
+            raise RuntimeError('Invalid pin number')
 
         print_verbose('Controller.digital_read.reading.from')
 
         try:
             command = ProtocolStringFormatter.format_digital_read(pin_number)
             if not ProtocolFormatValidator.validate_read_action(command):
-                return False
+                raise RuntimeError('Invalid read action format')
 
             self.conn.write(command.encode())
             print_verbose('Controller.digital_read.reading.from.pin', pin_number, indent=1)
             line_received = self.conn.readline().decode().strip()
+
+            # pyserial may return errors like 'MI8RD8 ERROR' when testing
+            # The expected output should contain a ':' like 'D7:1'
+            if ':' not in line_received:
+                return ''
+
             header, value = line_received.split(':')
         except Exception as e:
-            print('\t[-]', e)
-            return -1
+            raise e
 
-        if header and header == ('D' + str(pin_number)):
-            return int(value)
-        return -1
+        return int(value)
 
     def analog_write(self, pin_number, analog_value):
         """

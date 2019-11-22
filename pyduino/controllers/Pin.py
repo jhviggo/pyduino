@@ -33,7 +33,7 @@ class DigitalPin(PinInterface):
             raise ValueError("pin_number must be a valid digital pin")
 
         if not Controller().set_pin_mode(pin_number, mode=mode):
-            raise Exception("Failed to set pin " + str(pin_number) + " to " + mode)
+            raise RuntimeError("Failed to set pin " + str(pin_number) + " to " + mode)
 
         self.conn = conn
         self.pin_number = pin_number

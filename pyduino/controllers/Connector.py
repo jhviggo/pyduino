@@ -1,5 +1,5 @@
 import serial
-from pyduino.HelperFunctions import singleton
+from pyduino.HelperFunctions import singleton, HelperFunctions
 
 
 @singleton
@@ -11,10 +11,18 @@ class Connector:
         self.baud_rate = baud_rate
         self.verbose = verbose
 
-        self.connect_to_serial_port()
+        if HelperFunctions().get_environment() == 'testing':
+            self.connect_to_test_serial_port()
+        else:
+            self.connect_to_serial_port()
 
     def get_connection(self) -> serial:
         return self.conn
+
+    def connect_to_test_serial_port(self):
+        self.serial_port = 'loop://'
+        self.conn = serial.serial_for_url(self.serial_port, 9600)
+        self.conn.timeout = self.read_timeout
 
     def connect_to_serial_port(self):
         """

@@ -6,6 +6,8 @@ MODE = 'M'
 SEPARATOR = ':'
 HIGH = 'HIGH'
 LOW = 'LOW'
+OUTPUT = "OUTPUT"
+INPUT = "INPUT"
 VALID_PIN_MODES = {
     'OUTPUT': 'O',
     'INPUT': 'I',

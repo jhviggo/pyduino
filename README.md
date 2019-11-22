@@ -55,32 +55,33 @@ Closing connection...
 ```
 
 ### run
-Currently there is no CLI or interactive interface. You will have to import the controllers from a python terminal.
-```bash
-# find project source
-cd pyduino/src
-
-python
-```
 ```python
 # import Connector and controller
-from pyduino.controllers import Connector
-from pyduino.controllers import Controller
+from pyduino.HelperFunctions import HelperFunctions
+from pyduino.controllers.Pin import *
+import time
 
 # create an instance with serial_port and if you want verbose prints
 connector = Connector(serial_port='COM3', read_timeout=1, verbose=True)
-conn = connector.connect_to_serial_port()
+conn = connector.get_serial_connection()
+
+# sets global verbose and language
+options = {
+    'verbose': True,
+    'language': 'en'
+}
+HelperFunctions(options=options)
 
 # pass the connection to the controller
 controller = Controller(conn, verbose=True)
 
 # set pin_mode and write
-controller.set_pin_mode(7, 'OUTPUT')
-controller.digital_write(7, 1)
+pin: PinInterface = DigitalPin(conn, 7)
+pin.write(1)
 
 # set pin_mode and read
-controller.set_pin_mode(8, 'INPUT')
-controller.digital_read(8)
+pin: PinInterface = DigitalPin(conn, 8, mode='INPUT')
+pin.read()
 
 # close connection
 connector.close_connection()
